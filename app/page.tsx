@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ContactForm from "./components/ContactForm";
 
 function AppStoreBadge({ href }: { href: string }) {
   return (
@@ -49,9 +50,6 @@ export default function Home() {
         </div>
         <div className="relative max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <p className="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-5">
-              Made in Japan
-            </p>
             <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.05] tracking-tight">
               人が使いたくなる<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-400">
@@ -59,12 +57,12 @@ export default function Home() {
               </span>
             </h1>
           </div>
-          {/* App screenshots floating up from bottom */}
+          {/* App screenshots */}
           <div className="flex justify-center gap-8 md:gap-16 items-end">
-            <div className="translate-y-8">
+            <div className="translate-y-6">
               <PhoneMockup src="/ishigakipay-screen.png" alt="IshigakiPay app" />
             </div>
-            <div className="translate-y-0 scale-105">
+            <div className="translate-y-6">
               <PhoneMockup src="/bluereel-real-1.png" alt="Blue Reel app" />
             </div>
           </div>
@@ -134,6 +132,15 @@ export default function Home() {
           <div>
             <PhoneMockup src="/bluereel-real-1.png" alt="Blue Reel" />
           </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section className="py-24 px-6 bg-slate-50">
+        <div className="max-w-xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 mb-3">お問い合わせ</h2>
+          <p className="text-gray-500 mb-10">ご質問・ご相談はこちらからお気軽にどうぞ。</p>
+          <ContactForm />
         </div>
       </section>
 
