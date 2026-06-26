@@ -135,15 +135,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact */}
-      <section className="py-24 px-6 bg-slate-50">
-        <div className="max-w-xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">お問い合わせ</h2>
-          <p className="text-gray-500 mb-10">ご質問・ご相談はこちらからお気軽にどうぞ。</p>
-          <ContactForm />
-        </div>
-      </section>
-
       {/* Company Info */}
       <section className="py-24 px-6 bg-white">
         <div className="max-w-3xl mx-auto">
@@ -163,6 +154,17 @@ export default function Home() {
               </div>
             ))}
           </dl>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section className="py-24 px-6 bg-slate-50">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 mb-3">お問い合わせ</h2>
+          <p className="text-gray-500 mb-10">ご質問・ご相談はこちらからお気軽にどうぞ。</p>
+          <div className="max-w-xl">
+            <ContactForm />
+          </div>
         </div>
       </section>
 
