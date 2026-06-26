@@ -35,16 +35,31 @@ export async function submitContact(
     }
   }
 
-  // Send email via Resend (env gate)
-  const resendKey = process.env.RESEND_API_KEY;
-  if (resendKey) {
-    const { Resend } = await import("resend");
-    const resend = new Resend(resendKey);
-    await resend.emails.send({
-      from: "Joyfully お問い合わせ <noreply@joyfully.jp>",
-      to: "kengo@delqui.io",
-      subject: `【Joyfully】お問い合わせ: ${name}様`,
-      text: `名前: ${name}\nメール: ${email}\n\n${message}`,
+  // Post to Slack via slack-gateway
+  const gatewayUrl = process.env.SLACK_GATEWAY_URL;
+  const gatewayKey = process.env.SLACK_GATEWAY_INTERNAL_KEY;
+  const channel = process.env.INQUIRY_SLACK_CHANNEL ?? "C0ARWPK4CLS";
+
+  if (gatewayUrl && gatewayKey) {
+    await fetch(`${gatewayUrl}/post`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Internal-Key": gatewayKey,
+      },
+      body: JSON.stringify({
+        channel,
+        text: `📥 新規問い合わせ — joyfully.jp`,
+        blocks: [
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: `📥 *新規問い合わせ* — joyfully.jp\n• 氏名: *${name}*\n• メール: ${email}\n• 内容: ${message}`,
+            },
+          },
+        ],
+      }),
     });
   } else {
     console.log("[contact]", { name, email, message });
