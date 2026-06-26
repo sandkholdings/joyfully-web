@@ -3,10 +3,22 @@ import Image from "next/image";
 function AppStoreBadge({ href }: { href: string }) {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer">
-      {/* Apple official App Store badge */}
       <img
         src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?size=250x83"
         alt="Download on the App Store"
+        height={40}
+        style={{ height: 40, width: "auto" }}
+      />
+    </a>
+  );
+}
+
+function GooglePlayBadge({ href }: { href: string }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      <img
+        src="/badge-googleplay-ja.png"
+        alt="Google Play で手に入れよう"
         height={40}
         style={{ height: 40, width: "auto" }}
       />
@@ -117,7 +129,8 @@ export default function Home() {
               人柄が伝わるから、いい出会いが生まれる。
             </p>
             <div className="flex flex-wrap gap-4">
-              <AppStoreBadge href="https://bluereel.app" />
+              <AppStoreBadge href="https://apps.apple.com/jp/app/id6782334471" />
+              <GooglePlayBadge href="https://play.google.com/store/apps/details?id=co.sandkholdings.bluereel.app" />
               <a
                 href="https://bluereel.app"
                 target="_blank"
