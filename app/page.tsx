@@ -154,12 +154,6 @@ export default function Home() {
                 <dd className="text-sm text-gray-900 col-span-2 whitespace-pre-line">{dd}</dd>
               </div>
             ))}
-            <div className="py-5 grid grid-cols-3 gap-4">
-              <dt className="text-sm font-semibold text-gray-500">親会社</dt>
-              <dd className="text-sm text-gray-900 col-span-2">
-                <a href="https://sandkholdings.co.jp/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900 underline underline-offset-2 decoration-gray-300 hover:decoration-gray-600 transition-colors">S&amp;K Holdings</a>
-              </dd>
-            </div>
           </dl>
         </div>
       </section>
@@ -179,6 +173,9 @@ export default function Home() {
       <footer className="bg-slate-950 border-t border-white/5 py-10 px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <span className="text-sm font-bold text-white">Joyfully</span>
+          <a href="https://sandkholdings.co.jp/" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-600 hover:text-slate-400 transition-colors">
+            S&amp;K Holdings グループ
+          </a>
           <p className="text-sm text-slate-500">
             © {new Date().getFullYear()} Joyfully. All rights reserved.
           </p>
