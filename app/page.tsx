@@ -136,6 +136,39 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 駅調整 (ekichousei) */}
+      <section className="py-28 px-6 bg-gradient-to-br from-emerald-950 via-green-950 to-slate-950">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+          <div className="order-2 md:order-1">
+            <PhoneMockup src="/ekichousei-screen.png" alt="駅調整" />
+          </div>
+          <div className="order-1 md:order-2">
+            <h3 className="text-emerald-400 text-xl font-bold mb-3">駅調整</h3>
+            <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-6">
+              飲み会、<br />どこ集合にする？
+            </h2>
+            <p className="text-slate-400 text-lg leading-relaxed mb-8">
+              参加者の最寄り駅を入れるだけで、移動時間・終電・お店の多さから
+              飲み会にちょうどいい集合駅を提案する無料サービス。
+              首都圏・関西 2,959 駅に対応、登録不要。
+            </p>
+            <div className="flex flex-wrap gap-4 items-center">
+              <a
+                href="https://ekichousei.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-400 transition-colors"
+              >
+                サイトを開く
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Company Info */}
       <section className="py-24 px-6 bg-white">
         <div className="max-w-3xl mx-auto">
