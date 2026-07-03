@@ -1,36 +1,7 @@
 import Image from "next/image";
 import ContactForm from "./components/ContactForm";
-
-// プロダクトが増えたらここに1行追加するだけで下の流れ・一覧に自動で乗る
-const APP_SCREENSHOTS = [
-  { src: "/ishigakipay-screen.png", alt: "IshigakiPay" },
-  { src: "/bluereel-real-1.png", alt: "Blue Reel" },
-  { src: "/ekichousei-screen.png", alt: "駅調整" },
-  { src: "/ishigakidata-screen.png", alt: "石垣市データブック" },
-];
-
-const MINI_PHONE_TILTS = [
-  "-rotate-6 translate-y-3",
-  "rotate-3 -translate-y-2",
-  "rotate-0 translate-y-1",
-];
-
-function MiniPhone({ src, alt, tilt = "", width = 130 }: { src: string; alt: string; tilt?: string; width?: number }) {
-  return (
-    <div
-      className={`relative shrink-0 rounded-[28px] overflow-hidden shadow-2xl ring-1 ring-white/10 ${tilt}`}
-      style={{ width, aspectRatio: "9/19.5", background: "#1a1a1a", padding: Math.round(width * 0.06) }}
-    >
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 bg-black rounded-b-xl z-10"
-        style={{ width: width * 0.38, height: width * 0.12 }}
-      />
-      <div className="relative h-full w-full rounded-[20px] overflow-hidden">
-        <Image src={src} alt={alt} fill className="object-cover object-top" />
-      </div>
-    </div>
-  );
-}
+import { MiniPhone } from "./components/MiniPhone";
+import { AppMarqueeRow } from "./components/AppMarquee";
 
 type Product = {
   name: string;
@@ -107,23 +78,6 @@ function ProductCard({ p }: { p: Product }) {
         {p.appStoreHref && <span className="text-xs text-slate-500 mt-3">App Storeでも配信中</span>}
       </div>
     </a>
-  );
-}
-
-// ループの折り返し（1周分の幅）が画面幅より狭いと、-50%移動時に右側が空白になる
-// （大画面で「右半分だけ流れてない」ように見える）ため、十分な回数だけ複製して幅を確保する
-const MARQUEE_REPEAT = 10;
-
-function AppMarqueeRow({ reverse = false }: { reverse?: boolean }) {
-  // 同じ並びをN連結したものを2連結して -50% でループさせるので、継ぎ目が見えない
-  const half = Array.from({ length: MARQUEE_REPEAT }, () => APP_SCREENSHOTS).flat();
-  const items = [...half, ...half];
-  return (
-    <div className={`flex w-max gap-6 ${reverse ? "marquee-row marquee-row--reverse" : "marquee-row"}`}>
-      {items.map((app, i) => (
-        <MiniPhone key={`${app.src}-${i}`} src={app.src} alt={app.alt} tilt={MINI_PHONE_TILTS[i % MINI_PHONE_TILTS.length]} />
-      ))}
-    </div>
   );
 }
 
