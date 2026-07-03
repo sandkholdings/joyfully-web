@@ -1,42 +1,12 @@
 import Image from "next/image";
 import ContactForm from "./components/ContactForm";
 
-function AppStoreBadge({ href }: { href: string }) {
-  return (
-    <a href={href} target="_blank" rel="noopener noreferrer">
-      {/* Apple official App Store badge */}
-      <img
-        src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?size=250x83"
-        alt="Download on the App Store"
-        height={40}
-        style={{ height: 40, width: "auto" }}
-      />
-    </a>
-  );
-}
-
-function PhoneMockup({ src, alt }: { src: string; alt: string }) {
-  return (
-    <div className="relative mx-auto" style={{ width: 260 }}>
-      {/* Phone frame */}
-      <div className="relative rounded-[44px] overflow-hidden shadow-2xl ring-1 ring-white/10"
-           style={{ background: "#1a1a1a", padding: "12px 12px", aspectRatio: "9/19.5" }}>
-        {/* Notch */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-7 bg-black rounded-b-2xl z-10" />
-        {/* Screen */}
-        <div className="relative h-full w-full rounded-[34px] overflow-hidden">
-          <Image src={src} alt={alt} fill className="object-cover object-top" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// アプリが増えたらここに1行追加するだけで下の流れに自動で乗る
+// プロダクトが増えたらここに1行追加するだけで下の流れ・一覧に自動で乗る
 const APP_SCREENSHOTS = [
   { src: "/ishigakipay-screen.png", alt: "IshigakiPay" },
   { src: "/bluereel-real-1.png", alt: "Blue Reel" },
   { src: "/ekichousei-screen.png", alt: "駅調整" },
+  { src: "/ishigakidata-screen.png", alt: "石垣市データブック" },
 ];
 
 const MINI_PHONE_TILTS = [
@@ -45,17 +15,98 @@ const MINI_PHONE_TILTS = [
   "rotate-0 translate-y-1",
 ];
 
-function MiniPhone({ src, alt, tilt }: { src: string; alt: string; tilt: string }) {
+function MiniPhone({ src, alt, tilt = "", width = 130 }: { src: string; alt: string; tilt?: string; width?: number }) {
   return (
     <div
       className={`relative shrink-0 rounded-[28px] overflow-hidden shadow-2xl ring-1 ring-white/10 ${tilt}`}
-      style={{ width: 130, aspectRatio: "9/19.5", background: "#1a1a1a", padding: "8px 8px" }}
+      style={{ width, aspectRatio: "9/19.5", background: "#1a1a1a", padding: Math.round(width * 0.06) }}
     >
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-4 bg-black rounded-b-xl z-10" />
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 bg-black rounded-b-xl z-10"
+        style={{ width: width * 0.38, height: width * 0.12 }}
+      />
       <div className="relative h-full w-full rounded-[20px] overflow-hidden">
         <Image src={src} alt={alt} fill className="object-cover object-top" />
       </div>
     </div>
+  );
+}
+
+type Product = {
+  name: string;
+  accent: string;
+  tagline: string;
+  description: string;
+  image: string;
+  href: string;
+  appStoreHref?: string;
+};
+
+const PRODUCTS: Product[] = [
+  {
+    name: "IshigakiPay",
+    accent: "text-amber-400",
+    tagline: "\"ありがとう\"を、島で使えるポイントに。",
+    description: "メンバーへの感謝を、石垣島の地元店舗で使えるポイントとして贈れるサービス。",
+    image: "/ishigakipay-screen.png",
+    href: "https://ishigakipay.com",
+    appStoreHref: "https://apps.apple.com/jp/app/ishigaki-pay/id6783578773",
+  },
+  {
+    name: "Blue Reel",
+    accent: "text-sky-400",
+    tagline: "30秒の動画で、人柄から出会う。",
+    description: "履歴書ではなく30秒の動画で応募する、リゾート接客の求人マッチングアプリ。",
+    image: "/bluereel-real-1.png",
+    href: "https://bluereel.app",
+  },
+  {
+    name: "駅調整",
+    accent: "text-emerald-400",
+    tagline: "飲み会、どこ集合にする？",
+    description: "参加者の最寄り駅を入れるだけで、ちょうどいい集合駅を提案する無料サービス。",
+    image: "/ekichousei-screen.png",
+    href: "https://ekichousei.com",
+  },
+  {
+    name: "石垣市データブック",
+    accent: "text-rose-400",
+    tagline: "石垣島の統計を、ひと目で。",
+    description: "人口・観光・財政・産業構造など公的統計をインタラクティブなグラフで再構成。",
+    image: "/ishigakidata-screen.png",
+    href: "https://ishigaki-data.com",
+  },
+];
+
+function ProductCard({ p }: { p: Product }) {
+  return (
+    <a
+      href={p.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group flex gap-5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.07] p-6 transition-colors"
+    >
+      <MiniPhone src={p.image} alt={p.name} width={90} />
+      <div className="min-w-0 flex-1 flex flex-col">
+        <div className="flex items-center justify-between gap-3">
+          <h3 className={`text-sm font-bold ${p.accent}`}>{p.name}</h3>
+          <svg
+            width="16"
+            height="16"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+            className="shrink-0 text-slate-500 group-hover:text-white group-hover:translate-x-0.5 transition-all"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+        <p className="text-white font-semibold mt-1 leading-snug">{p.tagline}</p>
+        <p className="text-slate-400 text-sm mt-2 leading-relaxed">{p.description}</p>
+        {p.appStoreHref && <span className="text-xs text-slate-500 mt-3">App Storeでも配信中</span>}
+      </div>
+    </a>
   );
 }
 
@@ -105,102 +156,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* IshigakiPay */}
-      <section className="py-28 px-6 bg-gradient-to-br from-amber-950 via-orange-950 to-slate-950">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div className="order-2 md:order-1">
-            <PhoneMockup src="/ishigakipay-screen.png" alt="IshigakiPay" />
-          </div>
-          <div className="order-1 md:order-2">
-            <h3 className="text-amber-400 text-xl font-bold mb-3">IshigakiPay</h3>
-            <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-6">
-              "ありがとう" を、<br />島で使えるポイントに。
-            </h2>
-            <p className="text-slate-400 text-lg leading-relaxed mb-8">
-              メンバーへの感謝を、石垣島の地元店舗で使えるポイントとして贈れるサービス。
-              従業員特典・地域メンバー特典など、組織の「ありがとう」を形にします。
-            </p>
-            <div className="flex flex-wrap gap-4 items-center">
-              <AppStoreBadge href="https://apps.apple.com/jp/app/ishigaki-pay/id6783578773" />
-              <a
-                href="https://ishigakipay.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-slate-400 hover:text-white text-sm font-medium transition-colors py-3"
-              >
-                詳しく見る
-                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Blue Reel */}
-      <section className="py-28 px-6 bg-gradient-to-br from-slate-950 via-sky-950 to-blue-950">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div>
-            <h3 className="text-sky-400 text-xl font-bold mb-3">Blue Reel</h3>
-            <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-6">
-              30秒の動画で、<br />人柄から出会う。
-            </h2>
-            <p className="text-slate-400 text-lg leading-relaxed mb-8">
-              リゾート接客の求人マッチングアプリ。
-              履歴書ではなく30秒の動画で応募。
-              人柄が伝わるから、いい出会いが生まれる。
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <AppStoreBadge href="https://bluereel.app" />
-              <a
-                href="https://bluereel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-slate-400 hover:text-white text-sm font-medium transition-colors py-3"
-              >
-                詳しく見る
-                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-            </div>
-          </div>
-          <div>
-            <PhoneMockup src="/bluereel-real-1.png" alt="Blue Reel" />
-          </div>
-        </div>
-      </section>
-
-      {/* 駅調整 (ekichousei) */}
-      <section className="py-28 px-6 bg-gradient-to-br from-emerald-950 via-green-950 to-slate-950">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div className="order-2 md:order-1">
-            <PhoneMockup src="/ekichousei-screen.png" alt="駅調整" />
-          </div>
-          <div className="order-1 md:order-2">
-            <h3 className="text-emerald-400 text-xl font-bold mb-3">駅調整</h3>
-            <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-6">
-              飲み会、<br />どこ集合にする？
-            </h2>
-            <p className="text-slate-400 text-lg leading-relaxed mb-8">
-              参加者の最寄り駅を入れるだけで、移動時間・終電・お店の多さから
-              飲み会にちょうどいい集合駅を提案する無料サービス。
-              首都圏・関西 2,959 駅に対応、登録不要。
-            </p>
-            <div className="flex flex-wrap gap-4 items-center">
-              <a
-                href="https://ekichousei.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-400 transition-colors"
-              >
-                サイトを開く
-                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-            </div>
+      {/* Products */}
+      <section className="py-20 px-6 bg-slate-950">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-xs font-bold text-slate-500 tracking-[0.2em] uppercase mb-8">Products</h2>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {PRODUCTS.map((p) => (
+              <ProductCard key={p.name} p={p} />
+            ))}
           </div>
         </div>
       </section>
