@@ -110,9 +110,13 @@ function ProductCard({ p }: { p: Product }) {
   );
 }
 
+// ループの折り返し（1周分の幅）が画面幅より狭いと、-50%移動時に右側が空白になる
+// （大画面で「右半分だけ流れてない」ように見える）ため、十分な回数だけ複製して幅を確保する
+const MARQUEE_REPEAT = 10;
+
 function AppMarqueeRow({ reverse = false }: { reverse?: boolean }) {
-  // 同じ並びを2連結して -50% でループさせるので、継ぎ目が見えない
-  const half = [...APP_SCREENSHOTS, ...APP_SCREENSHOTS];
+  // 同じ並びをN連結したものを2連結して -50% でループさせるので、継ぎ目が見えない
+  const half = Array.from({ length: MARQUEE_REPEAT }, () => APP_SCREENSHOTS).flat();
   const items = [...half, ...half];
   return (
     <div className={`flex w-max gap-6 ${reverse ? "marquee-row marquee-row--reverse" : "marquee-row"}`}>
