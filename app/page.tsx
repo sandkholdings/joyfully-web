@@ -32,6 +32,46 @@ function PhoneMockup({ src, alt }: { src: string; alt: string }) {
   );
 }
 
+// アプリが増えたらここに1行追加するだけで下の流れに自動で乗る
+const APP_SCREENSHOTS = [
+  { src: "/ishigakipay-screen.png", alt: "IshigakiPay" },
+  { src: "/bluereel-real-1.png", alt: "Blue Reel" },
+  { src: "/ekichousei-screen.png", alt: "駅調整" },
+];
+
+const MINI_PHONE_TILTS = [
+  "-rotate-6 translate-y-3",
+  "rotate-3 -translate-y-2",
+  "rotate-0 translate-y-1",
+];
+
+function MiniPhone({ src, alt, tilt }: { src: string; alt: string; tilt: string }) {
+  return (
+    <div
+      className={`relative shrink-0 rounded-[28px] overflow-hidden shadow-2xl ring-1 ring-white/10 ${tilt}`}
+      style={{ width: 130, aspectRatio: "9/19.5", background: "#1a1a1a", padding: "8px 8px" }}
+    >
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-4 bg-black rounded-b-xl z-10" />
+      <div className="relative h-full w-full rounded-[20px] overflow-hidden">
+        <Image src={src} alt={alt} fill className="object-cover object-top" />
+      </div>
+    </div>
+  );
+}
+
+function AppMarqueeRow({ reverse = false }: { reverse?: boolean }) {
+  // 同じ並びを2連結して -50% でループさせるので、継ぎ目が見えない
+  const half = [...APP_SCREENSHOTS, ...APP_SCREENSHOTS];
+  const items = [...half, ...half];
+  return (
+    <div className={`flex w-max gap-6 ${reverse ? "marquee-row marquee-row--reverse" : "marquee-row"}`}>
+      {items.map((app, i) => (
+        <MiniPhone key={`${app.src}-${i}`} src={app.src} alt={app.alt} tilt={MINI_PHONE_TILTS[i % MINI_PHONE_TILTS.length]} />
+      ))}
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -57,15 +97,11 @@ export default function Home() {
               </span>
             </h1>
           </div>
-          {/* App screenshots */}
-          <div className="flex justify-center gap-8 md:gap-16 items-end">
-            <div className="translate-y-6">
-              <PhoneMockup src="/ishigakipay-screen.png" alt="IshigakiPay app" />
-            </div>
-            <div className="translate-y-6">
-              <PhoneMockup src="/bluereel-real-1.png" alt="Blue Reel app" />
-            </div>
-          </div>
+        </div>
+        {/* App screenshots — 増え続けるプロダクト群を、特定の1つに固定せず流れで見せる */}
+        <div className="relative space-y-6 pb-14 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+          <AppMarqueeRow />
+          <AppMarqueeRow reverse />
         </div>
       </section>
 
