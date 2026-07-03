@@ -25,38 +25,43 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-@keyframes marquee-left {
-  from {
-    transform: translateX(0);
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
   }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes marquee-right {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
+  50% {
+    transform: translate(-4%, 5%) scale(1.08);
   }
 }
 
-.marquee-row {
-  animation-name: marquee-left;
-  animation-duration: 32s;
-  animation-timing-function: linear;
+.hero-blob-drift {
+  animation-name: hero-float;
+  animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
 }
 
-.marquee-row--reverse {
-  animation-name: marquee-right;
-  animation-duration: 36s;
+@keyframes hero-gradient-shift {
+  to {
+    background-position: -300% 0;
+  }
+}
+
+.kinetic-gradient-text {
+  background-image: linear-gradient(90deg, #f59e0b, #fb7185, #38bdf8, #34d399, #f59e0b);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: hero-gradient-shift 8s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-row {
+  .hero-blob-drift {
     animation: none;
+  }
+  .kinetic-gradient-text {
+    animation: none;
+    background-position: 0 0;
   }
 }

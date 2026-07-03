@@ -1,36 +1,6 @@
-import Image from "next/image";
 import ContactForm from "./components/ContactForm";
-
-// プロダクトが増えたらここに1行追加するだけで下の流れ・一覧に自動で乗る
-const APP_SCREENSHOTS = [
-  { src: "/ishigakipay-screen.png", alt: "IshigakiPay" },
-  { src: "/bluereel-real-1.png", alt: "Blue Reel" },
-  { src: "/ekichousei-screen.png", alt: "駅調整" },
-  { src: "/ishigakidata-screen.png", alt: "石垣市データブック" },
-];
-
-const MINI_PHONE_TILTS = [
-  "-rotate-6 translate-y-3",
-  "rotate-3 -translate-y-2",
-  "rotate-0 translate-y-1",
-];
-
-function MiniPhone({ src, alt, tilt = "", width = 130 }: { src: string; alt: string; tilt?: string; width?: number }) {
-  return (
-    <div
-      className={`relative shrink-0 rounded-[28px] overflow-hidden shadow-2xl ring-1 ring-white/10 ${tilt}`}
-      style={{ width, aspectRatio: "9/19.5", background: "#1a1a1a", padding: Math.round(width * 0.06) }}
-    >
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 bg-black rounded-b-xl z-10"
-        style={{ width: width * 0.38, height: width * 0.12 }}
-      />
-      <div className="relative h-full w-full rounded-[20px] overflow-hidden">
-        <Image src={src} alt={alt} fill className="object-cover object-top" />
-      </div>
-    </div>
-  );
-}
+import { MiniPhone } from "./components/MiniPhone";
+import { Hero } from "./components/Hero";
 
 type Product = {
   name: string;
@@ -110,19 +80,6 @@ function ProductCard({ p }: { p: Product }) {
   );
 }
 
-function AppMarqueeRow({ reverse = false }: { reverse?: boolean }) {
-  // 同じ並びを2連結して -50% でループさせるので、継ぎ目が見えない
-  const half = [...APP_SCREENSHOTS, ...APP_SCREENSHOTS];
-  const items = [...half, ...half];
-  return (
-    <div className={`flex w-max gap-6 ${reverse ? "marquee-row marquee-row--reverse" : "marquee-row"}`}>
-      {items.map((app, i) => (
-        <MiniPhone key={`${app.src}-${i}`} src={app.src} alt={app.alt} tilt={MINI_PHONE_TILTS[i % MINI_PHONE_TILTS.length]} />
-      ))}
-    </div>
-  );
-}
-
 export default function Home() {
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -134,30 +91,10 @@ export default function Home() {
       </nav>
 
       {/* Hero */}
-      <section className="relative pt-28 pb-0 overflow-hidden bg-slate-950">
-        <div className="absolute inset-0">
-          <Image src="/hero-bg.png" alt="" fill className="object-cover opacity-20" />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-950/40 to-slate-950" />
-        </div>
-        <div className="relative max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.05] tracking-tight">
-              小さなうれしいを、<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-400">
-                プロダクトに。
-              </span>
-            </h1>
-          </div>
-        </div>
-        {/* App screenshots — 増え続けるプロダクト群を、特定の1つに固定せず流れで見せる */}
-        <div className="relative space-y-6 pb-14 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-          <AppMarqueeRow />
-          <AppMarqueeRow reverse />
-        </div>
-      </section>
+      <Hero />
 
       {/* Products */}
-      <section className="py-20 px-6 bg-slate-950">
+      <section id="products" className="py-20 px-6 bg-slate-950">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-xs font-bold text-slate-500 tracking-[0.2em] uppercase mb-8">Products</h2>
           <div className="grid sm:grid-cols-2 gap-4">
