@@ -1,7 +1,6 @@
-import Image from "next/image";
 import ContactForm from "./components/ContactForm";
 import { MiniPhone } from "./components/MiniPhone";
-import { AppMarqueeRow } from "./components/AppMarquee";
+import { Hero } from "./components/Hero";
 
 type Product = {
   name: string;
@@ -92,30 +91,10 @@ export default function Home() {
       </nav>
 
       {/* Hero */}
-      <section className="relative pt-28 pb-0 overflow-hidden bg-slate-950">
-        <div className="absolute inset-0">
-          <Image src="/hero-bg.png" alt="" fill className="object-cover opacity-20" />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-950/40 to-slate-950" />
-        </div>
-        <div className="relative max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.05] tracking-tight">
-              小さなうれしいを、<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-400">
-                プロダクトに。
-              </span>
-            </h1>
-          </div>
-        </div>
-        {/* App screenshots — 増え続けるプロダクト群を、特定の1つに固定せず流れで見せる */}
-        <div className="relative space-y-6 pb-14 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-          <AppMarqueeRow />
-          <AppMarqueeRow reverse />
-        </div>
-      </section>
+      <Hero />
 
       {/* Products */}
-      <section className="py-20 px-6 bg-slate-950">
+      <section id="products" className="py-20 px-6 bg-slate-950">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-xs font-bold text-slate-500 tracking-[0.2em] uppercase mb-8">Products</h2>
           <div className="grid sm:grid-cols-2 gap-4">
