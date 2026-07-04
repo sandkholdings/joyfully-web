@@ -124,7 +124,7 @@ export default function Home() {
               { dt: "設立", dd: "2021年2月" },
               { dt: "資本金", dd: "650万円（資本準備金等含む）" },
               { dt: "所在地", dd: "沖縄県石垣市字登野城510番地" },
-              { dt: "事業内容", dd: "Webアプリ・モバイルアプリの企画・開発・運営" },
+              { dt: "事業内容", dd: "Webアプリ・モバイルアプリの自社開発・運営" },
             ].map(({ dt, dd }) => (
               <div key={dt} className="py-5 grid grid-cols-3 gap-4">
                 <dt className="text-sm font-semibold text-gray-500">{dt}</dt>
