@@ -14,10 +14,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Joyfully",
-  description: "We build and operate mobile applications.",
+  description: "We build and operate web and mobile applications.",
   openGraph: {
     title: "Joyfully",
-    description: "We build and operate mobile applications.",
+    description: "We build and operate web and mobile applications.",
     url: "https://joyfully.jp",
     siteName: "Joyfully",
     locale: "ja_JP",
