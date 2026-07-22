@@ -28,7 +28,7 @@ const PRODUCTS: Product[] = [
     tagline: "30秒の動画で、人柄から出会う。",
     description: "履歴書ではなく30秒の動画で応募する、リゾート接客の求人マッチングアプリ。",
     image: "/bluereel-real-1.png",
-    href: "https://bluereel.app",
+    href: "https://bluereel.jp",
   },
   {
     name: "駅調整",
